@@ -1,4 +1,5 @@
 import random
+import time
 
 #Para generar la cuadrícula completa
 def Mapa(r,c): 
@@ -12,6 +13,7 @@ def Huida(r,c):
     mapa = Mapa(r,c)
     posible = True  #Debe cambiar cuando el problema es imposible
     
+    start = time.time()
     while posible: 
         origen = random.choice(mapa) #Fija el primer punto
         print ('origen'+str(origen))
@@ -41,10 +43,12 @@ def Huida(r,c):
             if len(usado) == len(mapa):
                 print ('Y = POSSIBLE')
                 return 'L = ' + str(usado)
-            
         
+        end = time.time()
+        if (end-start)>10:
+            return 'IMPOSSIBLE'
             
-print (Huida(2,5))            
+print (Huida(3,3))            
     
 
     
