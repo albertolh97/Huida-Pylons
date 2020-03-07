@@ -11,44 +11,42 @@ def Mapa(r,c):
 
 def Huida(r,c):
     mapa = Mapa(r,c)
-    posible = True  #Debe cambiar cuando el problema es imposible
     
-    start = time.time()
-    while posible: 
+    start = time.time() #Se comienza a medir el tiempo de ejecución del bucle
+    while True: 
         origen = random.choice(mapa) #Fija el primer punto
-        print ('origen'+str(origen))
         usado = []  #Se usará para almacenar los puntos en los que ya hemos estado
         usado.append(origen)
         intento = True #Cambia cuando vayamos a probar con otro origen
         
         while intento:
-            r1 = usado[-1] [0]
-            c1 = usado[-1] [1]
-            opciones=[]
+            r1 = usado[-1] [0] #Representa el valor de la fila de la última cuadrícula escogida
+            c1 = usado[-1] [1] #Representa el valor de la columna de la última cuadrícula escogida
+            opciones=[] #Aquí se almacenan las posibles cuadrículas a las que te puedes trasladar en cada momento
             for r in range(1,r+1):
                 for c in range(1,c+1):
-                    if r==r1 or c==c1 or r-c==r1-c1 or r+c==r1+c1:
+                    if r==r1 or c==c1 or r-c==r1-c1 or r+c==r1+c1: #Asegura que se cumplan las condiciones impuestas por el problema
                         continue
-                    if (r,c) in usado:
+                    if (r,c) in usado: #Asegura que no se utilice la misma cuadrícula dos veces
                         continue
                     else:
                         opciones.append((r,c))
-            print ('opciones'+str(opciones))
-            if opciones == []:
+            if opciones == []: #En este caso ninguna cuadrícula era posible por lo que es necesario cambiar el origen y probar de nuevo
                 intento = False
-            if opciones != []:
+            if opciones != []: #Se elige una opción aleatoria dentro de las cuadrículas posibles
                 a = random.choice(opciones)
                 usado.append(a)
-                print ('usado'+str(usado))
-            if len(usado) == len(mapa):
+            if len(usado) == len(mapa): #Si esto se cumple se puede decir que hemos estado en todas las cuadrículas una vez
                 print ('Y = POSSIBLE')
                 return 'L = ' + str(usado)
         
+        #Si el tiempo necesario para encontrar una solución es mayor de 10 segundos se asume que no existe 
+        #(se debería aumentar el valor en caso de que la cuadrícula escogida fuera muy grande) 
         end = time.time()
-        if (end-start)>10:
+        if (end-start)>10: 
             return 'IMPOSSIBLE'
             
-print (Huida(3,3))            
+print (Huida(3,5))            
     
 
     
